@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'angular-monorepo',
-  preset: '../../jest.preset.js',
+  displayName: 'gauge-chart',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/apps/angular-monorepo',
+  coverageDirectory: '../../../coverage/libs/controls/gauge-chart',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

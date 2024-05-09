@@ -1,27 +1,37 @@
 {
-  "name": "angular-monorepo",
+  "name": "shell",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
-  "sourceRoot": "apps/angular-monorepo/src",
+  "prefix": "ng-mf",
+  "sourceRoot": "apps/shell/src",
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "outputPath": "dist/apps/angular-monorepo",
-        "index": "apps/angular-monorepo/src/index.html",
-        "main": "apps/angular-monorepo/src/main.ts",
-        "polyfills": ["zone.js"],
-        "tsConfig": "apps/angular-monorepo/tsconfig.app.json",
+        "outputPath": "dist/apps/shell",
+        "index": "apps/shell/src/index.html",
+        "main": "apps/shell/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/shell/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "apps/angular-monorepo/src/favicon.ico",
-          "apps/angular-monorepo/src/assets"
+          "apps/shell/src/favicon.ico",
+          "apps/shell/src/assets"
         ],
-        "styles": ["apps/angular-monorepo/src/styles.scss"],
-        "scripts": []
+        "styles": [
+          "apps/shell/src/styles.scss"
+        ],
+        "scripts": [
+        ],
+        "customWebpackConfig": {
+          "path": "apps/shell/webpack.config.ts"
+        }
       },
       "configurations": {
         "production": {
@@ -37,7 +47,10 @@
               "maximumError": "4kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/shell/webpack.prod.config.ts"
+          }
         },
         "development": {
           "buildOptimizer": false,
@@ -51,13 +64,17 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:module-federation-dev-server",
+      "options": {
+        "port": 4200,
+        "publicHost": "http://localhost:4200"
+      },
       "configurations": {
         "production": {
-          "buildTarget": "angular-monorepo:build:production"
+          "buildTarget": "shell:build:production"
         },
         "development": {
-          "buildTarget": "angular-monorepo:build:development"
+          "buildTarget": "shell:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -65,7 +82,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "angular-monorepo:build"
+        "buildTarget": "shell:build"
       }
     },
     "lint": {
@@ -73,9 +90,11 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
-        "jestConfig": "apps/angular-monorepo/jest.config.ts"
+        "jestConfig": "apps/shell/jest.config.ts"
       }
     }
   }
